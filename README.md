@@ -12,7 +12,8 @@ make all/full
 ```
 
 Target `all` compiles the kernel, generating `os.elf` and `os.bin`.
-Target `full` compiles and disassemble the kernel, generating `os.elf`, `os.bin`, `os.code` and `os.machine`.
+
+Target `full` compiles and disassembles the kernel, generating `os.elf`, `os.bin`, `os.code` and `os.machine`.
 
 
 ### 2. Debug
@@ -30,4 +31,5 @@ make debug-vscode
 will run qemu as foreground task and export gdbserver port to 1234. You can run vscode as gdb front-end after connecting to gdbserver.
 
 > If you run vscode and qemu (`make debug-vscode`) on same machine, change ip address of `miDebuggerServerAddress` in .vscode/launch.json to `localhost`.
+>
 > If you run vscode and qemu (`make debug-vscode`) on different machine, change ip address of `miDebuggerServerAddress` in .vscode/launch.json to ip address of host running qemu.
