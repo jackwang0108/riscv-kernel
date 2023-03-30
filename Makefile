@@ -108,14 +108,14 @@ run: all
 debug-gdb: all
 	@echo "Press Ctrl-C and then input 'quit' to exit GDB and QEMU"
 	@echo "-------------------------------------------------------"
-	@${QEMU} ${QFLAGS} -kernel ${DIR}os.elf -s -S &
+	@${QEMU} ${QFLAGS} -kernel ${DIR}os.elf -gdb 1234 -S &
 	@${GDB} ${DIR}os.elf -q -x ./gdbinit
 
 .PHONY : debug-vscode
 debug-vscode:
 	@echo "QEMU will automatically exit once you stop VSCode debugging"
 	@echo "-----------------------------------------------------------"
-	@${QEMU} ${QFLAGS} -kernel ${DIR}os.elf -s -S
+	@${QEMU} ${QFLAGS} -kernel ${DIR}os.elf -gdb 1234 -S
 
 
 # code phony target depends on target all, which disasseble the kernel
