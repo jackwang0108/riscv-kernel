@@ -1,0 +1,48 @@
+{
+    "version": "2.0.0",
+    "tasks": [
+        {
+            "label": "build-full",
+            "command": "make",
+            "type": "shell",
+            "args": [
+                "full"
+            ],
+            "group": {
+                "isDefault": true,
+                "kind": "build"
+            }
+        },
+        {
+            "label": "start-qemu",
+            "type": "shell",
+            "command": "/home/jack/opt/qemu/bin/qemu-system-riscv32",
+            "args": [
+                "-S",
+                "-nographic",
+                "-gdb", "tcp::1234",
+                "-smp", "1",
+                "-machine", "virt",
+                "-bios", "none",
+                "-kernel", "${workspaceFolder}/build/os.elf"
+            ],
+            "isBackground": true,
+            "options": {
+                "cwd": "${workspaceFolder}"
+            },
+            "problemMatcher": {
+                "pattern": {
+                    // "regexp": "^(Starting QEMU)",
+                    "regexp": ".*",
+                    "line": 1,
+                },
+                "background": {
+                    "activeOnStart": true,
+                    "beginsPattern": "^(Starting QEMU)",
+                    "endsPattern": "."
+                }
+            },
+            "dependsOn": "build-full",
+        }
+    ]
+}
