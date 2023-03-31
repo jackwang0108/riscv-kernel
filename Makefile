@@ -18,6 +18,7 @@ CFLAGS = -nostdlib -fno-builtin -march=rv32ima -mabi=ilp32 -g -Wall
 #					 Here we simply use a default virtual machine setups.
 #		4. -bios: set your bios program. None means using QEMU bios.
 QFLAGS = -nographic -smp 1 -machine virt -bios none
+# QFLAGS = -smp 1 -machine virt -bios none
 
 # QEMU
 QEMU = qemu-system-riscv32
@@ -43,6 +44,7 @@ SRCS_ASM = \
 
 SRCS_C = \
 	kernel.c \
+	uart.c \
 
 MKP := $(abspath $(lastword $(MAKEFILE_LIST)))  #获取当前正在执行的makefile的绝对路径
 # DIR :=  $(patsubst$(%/, %, dir $(MKP)))
@@ -108,7 +110,7 @@ run: all
 debug-gdb: all
 	@echo "Press Ctrl-C and then input 'quit' to exit GDB and QEMU"
 	@echo "-------------------------------------------------------"
-	@${QEMU} ${QFLAGS} -kernel ${DIR}os.elf -gdb 1234 -S &
+	@${QEMU} ${QFLAGS} -kernel ${DIR}os.elf -s -S &
 	@${GDB} ${DIR}os.elf -q -x ./gdbinit
 
 .PHONY : debug-vscode
