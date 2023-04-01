@@ -41,10 +41,13 @@ OBJDUMP = ${CROSS_COMPILE}objdump
 # source files
 SRCS_ASM = \
 	start.S \
+	mem.S \
 
 SRCS_C = \
 	kernel.c \
 	uart.c \
+	page.c \
+	printf.c \
 
 MKP := $(abspath $(lastword $(MAKEFILE_LIST)))  #获取当前正在执行的makefile的绝对路径
 # DIR :=  $(patsubst$(%/, %, dir $(MKP)))
@@ -81,7 +84,7 @@ ${DIR}%.o: %.s
 #		1. link all objective files into os.elf whose start addr is 0x8000_0000
 #		2. convert os.elf into os.bin, this will remove useless segment in os.elf and prepare for objdump to disassemble
 os.elf: ${OBJS}
-	@${CC} ${CFLAGS} ${SRC} -Ttext=0x80000000 -o ${DIR}os.elf $^
+	@${CC} ${CFLAGS} ${SRC} -T os.ld -o ${DIR}os.elf $^
 	@${OBJCOPY} -O binary ${DIR}os.elf ${DIR}os.bin
 
 
