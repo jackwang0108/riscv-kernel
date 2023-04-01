@@ -7,7 +7,8 @@
             ],
             "defines": [],
             "compilerPath": "/home/jack/opt/riscv-toolchain/bin/riscv64-unknown-elf-gcc",
-            "intelliSenseMode": "linux-gcc-x86"
+            "intelliSenseMode": "linux-gcc-x86",
+            "configurationProvider": "ms-vscode.makefile-tools"
         }
     ],
     "version": 4

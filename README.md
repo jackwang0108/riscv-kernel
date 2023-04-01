@@ -1,5 +1,5 @@
 # riscv-kernel
-A tiny risc-v 32 kernel.
+A tiny risc-v 32 kernel, for learning risc-v.
 
 
 ## Usage
