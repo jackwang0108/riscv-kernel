@@ -62,7 +62,7 @@ static int _vsnprintf(char *out, size_t n, const char *s, va_list vl){
                     for (long nn = num; nn /= 10; digits++);
                     for (int i = digits - 1; i >= 0; i--){
                         if (out && pos + i < n)
-                            out[pos + 1] = '0' + (num % 10);
+                            out[pos + i] = '0' + (num % 10);
                         num /= 10;
                     }
                     pos += digits;
