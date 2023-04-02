@@ -5,7 +5,7 @@
 #		4. -mabi: how to pass function arguments when calling function between C and assembly
 #		5. -g: generates debug infomation and writing them into compiled binary program when compiling
 #		6. -Wall: print all warning messages when compiling
-CFLAGS = -nostdlib -fno-builtin -march=rv32ima -mabi=ilp32 -g -Wall
+CFLAGS = -nostdlib -fno-builtin -march=rv32ima -mabi=ilp32 -g -Wall -I include/
 
 # QEMU options
 #		1. -nographic: do not display a screen
@@ -42,12 +42,14 @@ OBJDUMP = ${CROSS_COMPILE}objdump
 SRCS_ASM = \
 	start.S \
 	mem.S \
+	entry.S \
 
 SRCS_C = \
 	kernel.c \
 	uart.c \
 	page.c \
 	printf.c \
+	sched.c \
 
 MKP := $(abspath $(lastword $(MAKEFILE_LIST)))  #获取当前正在执行的makefile的绝对路径
 # DIR :=  $(patsubst$(%/, %, dir $(MKP)))
@@ -77,7 +79,7 @@ ${DIR}%.o: %.c
 	${CC} ${CFLAGS} -c -o $@ $<
 
 # compile all .S file into .o
-${DIR}%.o: %.s
+${DIR}%.o: %.S
 	${CC} ${CFLAGS} -c -o $@ $<
 
 # target os.elf depends on OBJS and will:
@@ -113,14 +115,14 @@ run: all
 debug-gdb: all
 	@echo "Press Ctrl-C and then input 'quit' to exit GDB and QEMU"
 	@echo "-------------------------------------------------------"
-	@${QEMU} ${QFLAGS} -kernel ${DIR}os.elf -s -S &
+	@${QEMU} ${QFLAGS} -kernel ${DIR}os.elf -gdb tcp::1234 -S &
 	@${GDB} ${DIR}os.elf -q -x ./gdbinit
 
 .PHONY : debug-vscode
 debug-vscode:
 	@echo "QEMU will automatically exit once you stop VSCode debugging"
 	@echo "-----------------------------------------------------------"
-	@${QEMU} ${QFLAGS} -kernel ${DIR}os.elf -gdb 1234 -S
+	@${QEMU} ${QFLAGS} -kernel ${DIR}os.elf -gdb tcp::1234 -S
 
 
 # code phony target depends on target all, which disasseble the kernel
