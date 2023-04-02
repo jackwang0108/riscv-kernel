@@ -4,5 +4,12 @@
         "os.h": "c",
         "stddef.h": "c"
     },
-    "C_Cpp.errorSquiggles": "disabled"
+    "C_Cpp.errorSquiggles": "disabled",
+    "makefile.launchConfigurations": [
+        {
+            "cwd": "/home/jack/projects/riscv-kernel/build",
+            "binaryPath": "/home/jack/projects/riscv-kernel/build/os.elf",
+            "binaryArgs": []
+        }
+    ]
 }
