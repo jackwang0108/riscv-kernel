@@ -3,7 +3,7 @@
         {
             "name": "Linux",
             "includePath": [
-                "${workspaceFolder}/**"
+                "${workspaceFolder}/include/**"
             ],
             "defines": [],
             "compilerPath": "/home/jack/opt/riscv-toolchain/bin/riscv64-unknown-elf-gcc",
